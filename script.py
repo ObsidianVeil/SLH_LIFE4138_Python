@@ -30,9 +30,9 @@ AvsB_downreg = filtered_AvsB[filtered_AvsB["log2FoldChange"]<0]
 AvsE_downreg = filtered_AvsE[filtered_AvsE["log2FoldChange"]<0]
 
 #output results
-AvB_statistics_heading = output_file.add_heading("AvB Statistical summary")
+output_file.add_heading("AvB Statistical summary") #add heading to stats
 
-AvB_statistics = output_file.add_paragraph("\n Upregulated genes: " + str(AvsB_upreg.shape[0]) + #AvB upregulated genes
+output_file.add_paragraph("\n Upregulated genes: " + str(AvsB_upreg.shape[0]) + #AvB upregulated genes
                   "\n Downregulated genes: " + str(AvsB_downreg.shape[0]) + #AvB downregulated genes
                   "\n \n Maximum p value: " + str(max(AvsB["pvalue"])) + #AvB maximum p value
                   "\n Minimum p value: " + str(min(AvsB["pvalue"])) + #AvB minimum p value
@@ -43,8 +43,9 @@ AvB_statistics = output_file.add_paragraph("\n Upregulated genes: " + str(AvsB_u
                   "\n Median 2 fold log: " + str(round(AvsB["log2FoldChange"].median(), 2)) + #AvB median 2 fold log
                   "\n Standard deviation of 2 fold log: " + str(round(AvsB["log2FoldChange"].std(), 2)) + "\n \n") #AvB standard deviation 2 fold log
 
-AvE_statistics_heading = output_file.add_heading("AvE Statistical summary")
-AvE_statistics = output_file.add_paragraph("\n Upregulated genes: " + str(AvsE_upreg.shape[0]) + #AvE upregulated genes
+output_file.add_heading("AvE Statistical summary") #add heading to stats
+
+output_file.add_paragraph("\n Upregulated genes: " + str(AvsE_upreg.shape[0]) + #AvE upregulated genes
                   "\n Downregulated genes: " + str(AvsE_downreg.shape[0]) + #AvE downregulated genes
                   "\n \n Maximum p value: " + str(max(AvsE["pvalue"])) + #AvE maximum p value
                   "\n Minimum p value: " + str(min(AvsE["pvalue"])) + #AvE minimum p value
@@ -64,6 +65,7 @@ AvsB_volcano = sns.scatterplot(x = AvsB["log2FoldChange"], y = AvsB["pvalue_neg_
 AvsB_volcano.set(xlabel = "Magnitude of changes (log2)", ylabel = "Significance (negative log 10)", title = "AvsB Volcano graph") #set labels for AvsB plot
 plt.savefig("AvsB_volcano.png") #save plot
 plt.close() #close plot within python
+output_file.add_heading("AvsB Volcano plot") #add heading to plot
 output_file.add_picture("AvsB_volcano.png") #add picture to output document
 
 #Generate AvsE volcano graph/scatter plot
@@ -71,6 +73,7 @@ AvsE_volcano = sns.scatterplot(x = AvsE["log2FoldChange"], y = AvsE["pvalue_neg_
 AvsE_volcano.set(xlabel = "Magnitude of changes (log2)", ylabel = "Significance (negative log 10)", title = "AvsE Volcano graph") #set labels for AvsE plot
 plt.savefig("AvsE_volcano.png") #save plot
 plt.close() #close plot
+output_file.add_heading("AvsE Volcano plot") #add heading to plot
 output_file.add_picture("AvsE_volcano.png") #add picture to output document
 
 #AvsB MA plots
@@ -80,6 +83,7 @@ plt.ylabel("Log2 of fold change")
 plt.title("MA plot for AvsB data")
 plt.savefig("AvsB_MA_plot.png") #save the plot
 plt.close() #close the plot
+output_file.add_heading("AvsB MA plot") #add heading to plot
 output_file.add_picture("AvsB_MA_plot.png") #add picture to output document
 
 
@@ -90,6 +94,7 @@ plt.ylabel("Log2 of fold change")
 plt.title("MA plot for AvsE data")
 plt.savefig("AvsE_MA_plot.png")
 plt.close() #close the plot
+output_file.add_heading("AvsE MA plot") #add heading to plot
 output_file.add_picture("AvsE_MA_plot.png") #add picture to output document
 
 #AvsB p value histogram
@@ -99,6 +104,7 @@ plt.ylabel("Counts")
 plt.title("Histogram of p values across AvsB data")
 plt.savefig("AvsB_pvalue_histogram.png")
 plt.close()
+output_file.add_heading("AvsB p value histogram") #add heading to plot
 output_file.add_picture("AvsB_pvalue_histogram.png") #add picture to output document
 
 #AvsE pvalue histogram
@@ -108,6 +114,7 @@ plt.ylabel("Counts")
 plt.title("Histogram of p values across AvsE data")
 plt.savefig("AvsE_pvalue_histogram.png")
 plt.close()
+output_file.add_heading("AvsB p value histogram") #add heading to plot
 output_file.add_picture("AvsE_pvalue_histogram.png") #add picture to output document
 
 #AvsB Heatmap
@@ -121,6 +128,7 @@ plt.ylabel("Genes of interest")
 plt.title("Heat map showing the log values of the \nBase Mean and Fold Change for the top 10 genes of AvsB")
 plt.savefig("Heat_map_for_MeanvsFoldChange_AvsB.png")
 plt.close()
+output_file.add_heading("AvsB heat map") #add heading to plot
 output_file.add_picture("Heat_map_for_MeanvsFoldChange_AvsB.png") #add picture to output document
 
 #AvsE Heatmap
@@ -134,6 +142,7 @@ plt.ylabel("Genes of interest")
 plt.title("Heat map showing the log values of the \nBase Mean and Fold Change for the top 10 genes of AvsE")
 plt.savefig("Heat_map_for_MeanvsFoldChange_AvsE.png")
 plt.close()
+output_file.add_heading("AvsE heat map") #add heading to plot
 output_file.add_picture("Heat_map_for_MeanvsFoldChange_AvsE.png") #add picture to output document
 
 define_significance_header = output_file.add_heading("Defining Significance")
