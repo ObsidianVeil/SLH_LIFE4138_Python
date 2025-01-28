@@ -6,6 +6,10 @@ import matplotlib.pyplot as plt
 from docx import Document
 import os
 
+#validate files are present
+if not os.path.exists("set_3/A_vs_B.deseq2.results.tsv") or not os.path.exists("set_3/A_vs_E.deseq2.results.tsv"):
+    raise FileNotFoundError("One or more files are missing or misnamed")
+
 #open file to record outputs to
 output_file = Document()
 output_file.save("Output_file.docx")
@@ -16,6 +20,16 @@ if not os.path.exists("Outputs"):
 #Read in data
 AvsB = pd.read_csv("set_3/A_vs_B.deseq2.results.tsv", sep="\t")
 AvsE = pd.read_csv("set_3/A_vs_E.deseq2.results.tsv", sep="\t")
+
+AvsB.to_csv("AvsB_raw_data.csv", index=False)
+
+#validate required columns exist
+required_columns = {"gene_id", "baseMean", "log2FoldChange", "pvalue", "padj"}
+if not required_columns.issubset(AvsB.columns):
+    raise ValueError(f"AvsB is missing required columns: {required_columns - set(AvsB.columns)}")
+
+if not required_columns.issubset(AvsE.columns):
+    raise ValueError(f"AvsE is missing required columns: {required_columns - set(AvsE.columns)}")
 
 #Filter insignificant results
 filtered_AvsB = AvsB[(AvsB["log2FoldChange"].abs() >= 2) & (AvsB["pvalue"]<0.05)]
@@ -160,7 +174,7 @@ filtered_AvsB_table_data = [filtered_AvsB.columns.to_list()] + filtered_AvsB.val
 output_file.add_heading("Filtered AvsB Table")
 
 # Add table to output document
-output_file.add_table(rows=0, cols=len(filtered_AvsB.columns))
+AvsB_filtered_table = output_file.add_table(rows=0, cols=len(filtered_AvsB.columns))
 
 #add data to table
 for row_data in filtered_AvsB_table_data:
@@ -175,7 +189,7 @@ filtered_AvsE_table_data = [filtered_AvsE.columns.to_list()] + filtered_AvsE.val
 output_file.add_heading("Filtered AvsE Table")
 
 # Add table to output document
-output_file.add_table(rows=0, cols=len(filtered_AvsE.columns))
+AvsB_filtered_table = output_file.add_table(rows=0, cols=len(filtered_AvsE.columns))
 
 #add data to table
 for row_data in filtered_AvsE_table_data:
