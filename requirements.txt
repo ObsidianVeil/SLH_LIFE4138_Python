@@ -3,3 +3,4 @@ numpy
 seaborn
 matplotlib.pyplot
 python-docx
+os
