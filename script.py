@@ -21,8 +21,6 @@ if not os.path.exists("Outputs"):
 AvsB = pd.read_csv("set_3/A_vs_B.deseq2.results.tsv", sep="\t")
 AvsE = pd.read_csv("set_3/A_vs_E.deseq2.results.tsv", sep="\t")
 
-AvsB.to_csv("AvsB_raw_data.csv", index=False)
-
 #validate required columns exist
 required_columns = {"gene_id", "baseMean", "log2FoldChange", "pvalue", "padj"}
 if not required_columns.issubset(AvsB.columns):
