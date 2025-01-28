@@ -160,7 +160,7 @@ filtered_AvsB_table_data = [filtered_AvsB.columns.to_list()] + filtered_AvsB.val
 output_file.add_heading("Filtered AvsB Table")
 
 # Add table to output document
-AvsB_filtered_table = output_file.add_table(rows=0, cols=len(filtered_AvsB.columns))
+output_file.add_table(rows=0, cols=len(filtered_AvsB.columns))
 
 #add data to table
 for row_data in filtered_AvsB_table_data:
@@ -175,7 +175,7 @@ filtered_AvsE_table_data = [filtered_AvsE.columns.to_list()] + filtered_AvsE.val
 output_file.add_heading("Filtered AvsE Table")
 
 # Add table to output document
-AvsB_filtered_table = output_file.add_table(rows=0, cols=len(filtered_AvsE.columns))
+output_file.add_table(rows=0, cols=len(filtered_AvsE.columns))
 
 #add data to table
 for row_data in filtered_AvsE_table_data:
